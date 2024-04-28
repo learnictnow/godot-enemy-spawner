@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://beo5olxx0e50d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ssn7"]
+albedo_color = Color(1, 0.341176, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1mnr"]
+albedo_color = Color(0.439216, 1, 1, 1)
+
+[node name="Goal" type="Node3D"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material = SubResource("StandardMaterial3D_5ssn7")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material = SubResource("StandardMaterial3D_w1mnr")

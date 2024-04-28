@@ -1,33 +1,19 @@
 extends Node3D
 
-@export var spawner_enemy:PackedScene = load("res://Enemy.tscn")
+# Store the enemy to spawn, here is loads the default enemy but can be customised.
+@export var spawner_enemy:PackedScene = load("res://enemy.tscn")
+
+# Set the target object that the enemy will head towards (usually the player)
 @export var spawner_target:Node3D = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if spawner_target == null:
-		print("WARNING SPAWNER TARGET NOT SET")
-		
-	
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_timer_timeout():
+	# Create an enemy object
 	var spawn_object = spawner_enemy.instantiate()
-	spawn_object.movement_target_node
 	
-	var num_spawns = $SpawnPositions.get_child_count()
-	var rand_spawn_pos = randi_range(0,num_spawns-1)
-	spawn_object.position = $SpawnPositions.get_child(rand_spawn_pos).global_position
-	spawn_object.SPEED = randi_range(3,10)
-	
-	#spawn_object.position = $SpawnPositions/Marker3D.global_position
+	#Move the enemy that has been created to the spawn point position in the world
+	spawn_object.position = $SpawnPoint.global_position
+	# Set the target for the enemy to follow
 	spawn_object.movement_target_node = spawner_target
-	#get_tree().root.add_child(spawn_object)
-	add_child(spawn_object)
-	pass # Replace with function body.
+	
+	# Make the enemy visible by adding it to the current scene (not the spawner)
+	get_tree().current_scene.add_child(spawn_object)
