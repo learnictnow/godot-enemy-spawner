@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://yyqdft6r7wgt"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_5bcm6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_78lch"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqcul"]
+albedo_color = Color(0.905269, 3.34509e-06, 1.15514e-06, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xqr7e"]
+height = 1.0
+radius = 1.0
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_5bcm6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_78lch")
+
+[node name="Body" type="CSGTorus3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_iqcul")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Body"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="HitArea3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_xqr7e")
+
+[connection signal="body_entered" from="HitArea3D" to="." method="_on_hit_area_3d_body_entered"]
